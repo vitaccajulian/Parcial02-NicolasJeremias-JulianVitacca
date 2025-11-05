@@ -1,0 +1,68 @@
+/*estilos index.html*/
+
+.contenedor__principal{
+    display: grid;
+    background-color: var(--marron);
+    place-items: center;
+    height: 100vh;
+}
+
+.contenedor__ovalo{
+    width: 60%;
+    height: 100%;
+    background-color: var(--crema);
+    border-radius: 50% / 50%;
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+img{
+    width: clamp(140px, 22vw, 220px);
+    margin-bottom: clamp(8px,1.5vw,14px);
+
+}
+
+.titulo{
+    font-weight: 700;
+    letter-spacing: .01rem;
+    text-align: center;
+    color: var(--marron);
+    font-size: clamp(28px,7vw,80px);
+    line-height: .9;
+    margin: 0;
+}
+
+.ampersand{
+    color: var(--amarillo);
+    font-size: clamp(40px,9vw,100px);
+}
+
+.contenedor__formulario{
+    display: grid;
+    gap: 10px;
+    justify-content: center;
+    justify-items: center;
+    width: 100%;
+}
+
+.input{
+    padding: 12px 14px;
+    border: none;
+    background-color: #d8d8d8;
+    font-weight: 700;
+}
+
+.boton{
+    background-color: var(--marron);
+    color: var(--crema);
+    width: 50%;
+    padding: 10px;
+    border: none;
+}
+
+.boton:hover{
+    background-color: var(--amarillo);
+    color: var(--marron);
+}

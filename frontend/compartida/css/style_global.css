@@ -1,0 +1,17 @@
+
+/*paleta de colores*/
+
+:root{
+    --crema: #fdf8e2;
+    --amarillo: #f1b159;
+    --naranja: #ec9667;
+    --rosa: #c87e7d;
+    --violeta: #827ba7;
+    --marron: #471b18;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
