@@ -1,29 +1,52 @@
 // Repositorio: https://github.com/vitaccajulian/Parcial02-NicolasJeremias-JulianVitacca
 
-const express = require('express'); 
+import express from 'express';
+
+// Define __dirname para el ámbito de módulos de ES
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+import { sequelize } from './src/database/index.js';
+import { seedData } from './src/database/initData.js';
+
+import productRoutes from './src/routes/productRoute.js';
+import salesRoute from './src/routes/salesRoute.js';
+import adminRoutes from './src/routes/adminRoutes.js'
+
 const app = express();
-
-const productRoutes = require('./src/routes/productRoute.js')
-
 const PORT = process.env.PORT;
 
 /* View Engine */
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '/src/views');
+app.set('views', './src/views');
 
-/* Rutas */
-app.get('/', (req, res) => {
-    res.send("Hello Word");
-});
+/* Middlewares */
+app.use(express.json());
 
-// getAllProducts route
-//app.use('/api', productRoutes);
+/*  API Routes */
+app.use('/api/productos', productRoutes);
+app.use('/api/ventas', salesRoute);
 
-/* Archivos Estaticos */ 
-app.use(express.static('public'));
+/* Admin Routes */
+app.use('/admin', adminRoutes);
 
-app.use((req,res) => {
+/* Archivos Estaticos */
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res) => {
     res.status(404).send('Lo sentimos, pagina no encontrada'); // ACA ARMAR EL 404
 })
 
-app.listen(PORT, () => console.log(`Servidor corriendo en puerto:${PORT}`));
+sequelize
+    .sync({ force: true }) // El .sync se podria poner en seedData?
+    .then(() => seedData())
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`El servidor corriendo en puerto: ${PORT} |=|=| http://localhost:${PORT}/`);
+        });
+    })
+    .catch((error) => {
+        console.log({ error });
+    });
