@@ -18,6 +18,11 @@ import adminRoutes from './src/routes/adminRoutes.js'
 const app = express();
 const PORT = process.env.PORT;
 
+import cors from 'cors';
+app.use(cors({
+    origin: '*'
+}))
+
 /* View Engine */
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
