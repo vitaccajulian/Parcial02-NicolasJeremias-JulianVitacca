@@ -12,6 +12,16 @@ async function cargarElementos(elemento, ruta) {
     }
 }
 
+
+function botonCarrito(){
+    const boton_carrito = document.getElementById("btnCarrito")
+    if(!boton_carrito) return;
+
+    boton_carrito.addEventListener("click", ()=>{
+        window.location.href = "/frontend/cliente/carrito.html"
+    })
+}
+
 document.addEventListener("DOMContentLoaded", async() => {
     console.log("hola")
     let ruta_base = "";
@@ -24,5 +34,7 @@ document.addEventListener("DOMContentLoaded", async() => {
 
     await cargarElementos("#header", ruta_base + "header.html")
     await cargarElementos("#footer", ruta_base + "footer.html")
+
+    botonCarrito()
 
 })

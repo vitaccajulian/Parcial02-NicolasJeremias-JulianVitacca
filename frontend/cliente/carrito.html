@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+    <link rel="stylesheet" href="../compartida/css/style_global.css">
+    <link rel="stylesheet" href="assets/css/style_carrito.css">
+</head>
+<body>
+    <div id="header"></div>
+
+    <main class="container"> 
+        <h1>Carrito de <span id="nombre_usuario"></span></h1>
+
+        <section id="carrito_contenido">
+            <div id="lista_carrito"></div>
+
+            <div id="carrito_resumen">
+                <p>Total : $ <span id="total_carrito">0</span></p>
+                <button id="boton_finalizar">Finalizar Compra</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="/frontend/cliente/js/carrito.js"></script>
+    <script src="../compartida/js/global.js"></script>
+</body>
+</html>
