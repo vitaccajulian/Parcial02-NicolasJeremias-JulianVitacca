@@ -19,6 +19,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 import cors from 'cors';
+import { verificarToken } from './src/middleware/verifyToken.js';
 app.use(cors({
     origin: '*'
 }))
@@ -29,13 +30,18 @@ app.set('views', './src/views');
 
 /* Middlewares */
 app.use(express.json());
+// Verifica la cookie para iniciar/mantener sesion
+import { verificarToken } from "./src/middleware/verifyToken.js";
+// CookieParser 
+import cookieParser from 'cookie-parser';
+app.use(cookieParser());
 
 /*  API Routes */
 app.use('/api/productos', productRoutes);
 app.use('/api/ventas', salesRoute);
 
 /* Admin Routes */
-app.use('/admin', adminRoutes);
+app.use('/admin', verificarToken, adminRoutes);
 
 /* Archivos Estaticos */
 app.use(express.static(path.join(__dirname, 'public')));
