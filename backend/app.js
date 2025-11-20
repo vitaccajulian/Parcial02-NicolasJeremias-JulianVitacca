@@ -19,7 +19,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 import cors from 'cors';
-import { verificarToken } from './src/middleware/verifyToken.js';
+
 app.use(cors({
     origin: '*'
 }))
