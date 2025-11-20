@@ -1,4 +1,4 @@
-import { Productos, Discos, Libros, Categorias } from "../models/index.js";
+import { Productos, Discos, Libros, Categorias, Generos } from "../models/index.js";
 
 export const getProducts = async (req, res) => {
 
