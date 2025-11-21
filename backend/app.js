@@ -14,6 +14,7 @@ import { seedData } from './src/database/initData.js';
 import productRoutes from './src/routes/productRoute.js';
 import salesRoute from './src/routes/salesRoute.js';
 import adminRoutes from './src/routes/adminRoutes.js'
+import authRoutes from './src/routes/authRoutes.js'
 
 const app = express();
 const PORT = process.env.PORT;
@@ -39,6 +40,8 @@ app.use(cookieParser());
 /*  API Routes */
 app.use('/api/productos', productRoutes);
 app.use('/api/ventas', salesRoute);
+
+app.use('/auth', authRoutes);
 
 /* Admin Routes */
 app.use('/admin', verificarToken, adminRoutes);
