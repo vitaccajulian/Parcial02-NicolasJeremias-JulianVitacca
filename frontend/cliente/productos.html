@@ -27,8 +27,32 @@
 
             </div>
         </section>
-
     </main>
+
+    <div id="modal_producto" class="modal oculto">
+        <div class="modal_contenido">
+            <button class="modal_cerrar" id="modal_cerrar">X</button>
+
+            <div class="modal_imagen">
+                <img id="modal_imagen" src="" alt="">
+            </div>
+
+            <h3 id="modal_titulo"></h3>
+
+            <div class="modal_cantidad">
+                <p>Cantidad</p>
+                <button id="modal_restar">-</button>
+                <span id="modal_cantidad_item">1</span>
+                <button id="modal_sumar">+</button>
+            </div>
+
+            <div class="modal_acciones">
+                <button id="modal_eliminar">Eliminar del carrito</button>
+                <button id="modal_guardar">Guardar cambios</button>
+            </div>
+
+        </div>
+    </div>
 
     <script src="/frontend/cliente/js/productos.js"></script>
     <script src="../compartida/js/global.js"></script>

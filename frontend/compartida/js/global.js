@@ -1,4 +1,3 @@
-
 async function cargarElementos(elemento, ruta) {
     const contenedor = document.querySelector(elemento);
     if (!contenedor) return

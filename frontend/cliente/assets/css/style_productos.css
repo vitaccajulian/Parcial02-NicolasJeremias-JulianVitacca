@@ -31,7 +31,7 @@ h1{
 }
 
 
-.producto-card{
+.producto_card{
     border: 4px solid var(--marron);
     background-color: #fff;
     display: flex;
@@ -42,9 +42,16 @@ h1{
 .contenedor_imagen_producto{
     background-color: rgb(158, 158, 158);
     height: 180px;
+    width: 100%;
+    overflow: hidden;
 }
 
-/*aca me falta la imagen*/
+.contenedor_imagen_producto img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
 .contenedor_cuerpo_producto{
     padding: 0.75rem 0.9rem 0.9rem;
@@ -63,7 +70,7 @@ h1{
     margin-bottom: 0.4rem;
 }
 
-.producto_boton{
+.producto_boton_agregar, .producto_boton_eliminar{
     align-self: flex-end;
     background-color: var(--rosa);
     color: #fff;
@@ -74,6 +81,94 @@ h1{
     text-transform: lowercase;
 }
 
-.producto_boton:hover{
+.producto_boton_agregar:hover , .producto_boton_eliminar:hover{
     opacity: 0.7;
+}
+
+/*Modal*/
+
+.modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.oculto{
+    display: none;
+}
+
+
+.modal_contenido{
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal_cerrar{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border-radius: 10px;
+    border-color: var(--rosa);
+    background-color: var(--rosa);
+    padding: 5px;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal_imagen{
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+.modal_imagen img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.modal_cantidad{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal_cantidad p{
+    color: #a8a8a8;
+    font-size: 0.8rem;
+}
+
+.modal_cantidad button{
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.modal_acciones{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.modal_acciones button{
+    flex: 1;
+    padding: 8px;
+    cursor: pointer;
 }
