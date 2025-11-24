@@ -10,23 +10,32 @@
 <body>
     <div id="header"></div>
     <main class="container">
-        <h1>Bienvenido/a <span id="nombre_usuario"></span></h1>
+        <div class="seccion_filtros">
+            <ul class="filtros__lista">
+                <li><button class="filtros_btn" data-filtro = "todos">VER TODO</button></li>
+                <li><button class="filtros_btn" data-filtro = "discos">VER DISCOS</button></li>
+                <li><button class="filtros_btn" data-filtro = "libros">VER LIBROS</button></li>
+            </ul>
+        </div>
+        <div class="seccion_productos">
+            <h1>Bienvenido/a <span id="nombre_usuario"></span></h1>
 
-        <section class="categoria">
-            <h2 class="categoria__titulo">LIBROS</h2>
-            <div id="grid_libros" class="productos_grid">
-                
-            </div>
-        </section>
+            <section class="categoria" id="seccion_libros">
+                <h2 class="categoria__titulo">LIBROS</h2>
+                <div id="grid_libros" class="productos_grid">
+                    
+                </div>
+            </section>
 
-        <hr class="separador">
+            <hr class="separador" id="separador_productos">
 
-        <section class="categoria">
-            <h2 class="categoria__titulo">DISCOS</h2>
-            <div id="grid_discos" class="productos_grid">
+            <section class="categoria" id="seccion_discos">
+                <h2 class="categoria__titulo">DISCOS</h2>
+                <div id="grid_discos" class="productos_grid">
 
-            </div>
-        </section>
+                </div>
+            </section>
+        </div>
     </main>
 
     <div id="modal_producto" class="modal oculto">

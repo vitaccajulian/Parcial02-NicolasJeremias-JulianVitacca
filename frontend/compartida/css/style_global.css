@@ -50,27 +50,3 @@
     background-color: var(--rosa);
     padding: 20px;
 }
-
-
-
-.header__menu{
-    background-color: var(--amarillo);
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-}
-
-.header__lista{
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-    gap: 50px;
-}
-
-.header_btn{
-    color: var(--crema);
-    background-color: #be7e5b;
-    border: none;
-    padding: 0.3rem;
-    width: 100px;
-}

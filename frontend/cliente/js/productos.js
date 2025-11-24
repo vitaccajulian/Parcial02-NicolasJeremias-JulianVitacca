@@ -5,6 +5,8 @@ document.getElementById("nombre_usuario").textContent= nombre || "invitado"
 const api_url = "http://localhost:3000/api/productos"
 const BACKEND_URL = "http://localhost:3000";
 
+let productos_cache = []
+
 //carrito
 function obtenerCarrito(){
     const carrito_guardado = localStorage.getItem("carrito");
@@ -170,86 +172,9 @@ async function cargarProductos() {
             throw new Error("Error al obtener los productos. intente denuevo.")
         }
 
-        const productos = await respuesta.json();
+        productos_cache = await respuesta.json();
 
-        const gridLibros = document.getElementById("grid_libros");
-        const gridDiscos = document.getElementById("grid_discos");
-
-        gridDiscos.innerHTML= "";
-        gridLibros.innerHTML= "";
-
-        productos.forEach((p) => {
-            const id = p.id;
-            const titulo = p.titulo ?? "Sin titulo";
-            const precio = p.precio ?? "-";
-            const imagen = p.imagen ?? "";
-            const stock = p.stock ?? 0;
-            
-
-            const card = document.createElement("div");
-            card.className = "producto_card"
-            card.dataset.id = id
-
-            console.log(`${BACKEND_URL}/${imagen}`);
-
-            card.innerHTML = `
-                <div class="contenedor_imagen_producto">
-                    <img src="${BACKEND_URL}/${imagen}" alt="${titulo}">
-                </div>
-                <div class="contenedor_cuerpo_producto">
-                    <div class="producto_titulo">${titulo}</div>
-                    <div class="producto_precio">${precio}</div>
-                    <div class="producto_stock">stock: ${stock}</div>
-                    <div class="producto_botones">
-                        <button class="producto_boton_agregar">Añadir al carrito</button>
-                        <button class="producto_boton_eliminar oculto">Eliminar del carrito</button>
-                    </div>
-                </div>
-            `
-
-            const boton_agregar = card.querySelector(".producto_boton_agregar")
-
-            boton_agregar.addEventListener("click", () =>{
-                if(stock <= 0){
-                    alert("No hay stock disponible de este producto")
-                    return
-                }
-
-                const producto_carrito = {
-                    id,
-                    titulo,
-                    precio: Number(precio),
-                    imagen
-                }
-
-                abrirModalProducto(producto_carrito)
-            })
-
-            const btn_eliminar = card.querySelector(".producto_boton_eliminar")
-
-            btn_eliminar.addEventListener("click", () => {
-                let carrito = obtenerCarrito()
-                carrito = carrito.filter(item => item.id !== id)
-                guardarCarrito(carrito)
-                alert(`Se elimino del carrito.`);
-                actualizarBotonesCarrito()
-                
-            })
-
-            const tipo_producto = p["categoria.nombre"].toLowerCase();
-            const es_libro = tipo_producto === "libro";
-            const es_disco = tipo_producto === "disco";
-
-
-            if (es_disco){
-                gridDiscos.appendChild(card);
-            } else if (es_libro){
-                gridLibros.appendChild(card);
-            }
-
-            actualizarBotonesCarrito()
-
-        });
+        renderProductos("todos")
 
     }catch (error){
         console.log(error);
@@ -262,5 +187,119 @@ async function cargarProductos() {
 }
 
 
+async function renderProductos(filtro) {
+    const gridLibros = document.getElementById("grid_libros");
+    const gridDiscos = document.getElementById("grid_discos");
+
+    gridDiscos.innerHTML= "";
+    gridLibros.innerHTML= "";
+
+
+    const seccion_libros = document.getElementById("seccion_libros")
+    const seccion_discos = document.getElementById("seccion_discos")
+    const separador = document.getElementById("separador_productos")
+
+    if (filtro === "libros"){
+        seccion_libros.style.display = ""
+        seccion_discos.style.display = "none"
+        separador_productos.style.display = "none"
+    }else if(filtro === "discos"){
+        seccion_libros.style.display = "none"
+        seccion_discos.style.display = ""
+        separador_productos.style.display = "none"
+    }else{
+        seccion_libros.style.display = ""
+        seccion_discos.style.display = ""
+        separador_productos.style.display = ""
+    }
+
+    productos_cache.forEach((p) => {
+        const id = p.id;
+        const titulo = p.titulo ?? "Sin titulo";
+        const precio = p.precio ?? "-";
+        const imagen = p.imagen ?? "";
+        const stock = p.stock ?? 0;
+        
+
+        const card = document.createElement("div");
+        card.className = "producto_card"
+        card.dataset.id = id
+
+        const tipo_producto = p["categoria.nombre"].toLowerCase();
+        const es_libro = tipo_producto === "libro";
+        const es_disco = tipo_producto === "disco";
+
+        if (filtro === "libros" && !es_libro) return;
+        if (filtro === "discos" && !es_disco) return;
+
+        console.log(`${BACKEND_URL}/${imagen}`);
+
+        card.innerHTML = `
+            <div class="contenedor_imagen_producto">
+                <img src="${BACKEND_URL}/${imagen}" alt="${titulo}">
+            </div>
+            <div class="contenedor_cuerpo_producto">
+                <div class="producto_titulo">${titulo}</div>
+                <div class="producto_precio">${precio}</div>
+                <div class="producto_stock">stock: ${stock}</div>
+                <div class="producto_botones">
+                    <button class="producto_boton_agregar">Añadir al carrito</button>
+                    <button class="producto_boton_eliminar oculto">Eliminar del carrito</button>
+                </div>
+            </div>
+        `
+
+        const boton_agregar = card.querySelector(".producto_boton_agregar")
+
+        boton_agregar.addEventListener("click", () =>{
+            if(stock <= 0){
+                alert("No hay stock disponible de este producto")
+                return
+            }
+
+            const producto_carrito = {
+                id,
+                titulo,
+                precio: Number(precio),
+                imagen
+            }
+
+            abrirModalProducto(producto_carrito)
+        })
+
+        const btn_eliminar = card.querySelector(".producto_boton_eliminar")
+
+        btn_eliminar.addEventListener("click", () => {
+            let carrito = obtenerCarrito()
+            carrito = carrito.filter(item => item.id !== id)
+            guardarCarrito(carrito)
+            alert(`Se elimino del carrito.`);
+            actualizarBotonesCarrito()
+            
+        })
+
+
+        if (es_disco){
+            gridDiscos.appendChild(card);
+        } else if (es_libro){
+            gridLibros.appendChild(card);
+        }
+
+        actualizarBotonesCarrito()
+
+    });
+}
+
+
 //inicial
-document.addEventListener("DOMContentLoaded", cargarProductos);
+document.addEventListener("DOMContentLoaded",  () =>{
+    cargarProductos()
+
+    document.querySelectorAll(".filtros_btn").forEach(boton =>{
+        const filtro = boton.dataset.filtro
+        
+        boton.addEventListener("click", ()=>{
+            renderProductos(filtro)
+        })
+    })
+});
