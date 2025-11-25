@@ -3,19 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&L</title>
+    <title>La tienda de Jerry</title>
     <link rel="stylesheet" href="../compartida/css/style_global.css">
     <link rel="stylesheet" href="assets/css/style_index.css">
 </head>
 <body>
     <main class="contenedor__principal">
         <div class="contenedor__ovalo">
-            <img src="/img/Jerry.png" alt="Logo">
-            <h1 class="titulo">Tienda Jerry</h1>
+            <div class="logo">
+                <img src="http://localhost:3000/img/Jerry.png" alt="Logo">
+            </div>
+            
+            <div class="contenedor__accesos">
+                <section class="acceso_cliente">
+                    <h2>Entrar como visitante</h2>
+                    <p class="acceso_descripcion">
+                        Ingresa tu nombre para ver la tienda.
+                    </p>
+                    <div class="contenedor__formulario">
+                        <input id="usuario" class="input" placeholder="Ingrese su nombre...">
+                        <button id="boton_continuar" class="boton">Continuar</button>
+                    </div>
+                </section>
 
-            <div class="contenedor__formulario">
-                <input id="usuario" class="input" placeholder="Ingrese su nombre...">
-                <button id="boton_continuar" class="boton">Continuar</button>
+                <section class="acceso_admin">
+                    <h2>Acceso Administrador</h2>
+                    <p class="acceso_descripcion">
+                        Panel exclusivo para administradores.
+                    </p>
+                    <button id="boton_admin" class="boton boton_secundario">
+                        Ir al panel
+                    </button>
+                </section>
             </div>
         </div>
     </main>

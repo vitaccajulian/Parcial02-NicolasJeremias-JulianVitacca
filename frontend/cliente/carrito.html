@@ -10,7 +10,7 @@
 <body>
     <div id="header"></div>
 
-    <main class="container"> 
+    <main class="container main"> 
         <h1>Carrito de <span id="nombre_usuario"></span></h1>
 
         <section id="carrito_contenido">
@@ -19,9 +19,14 @@
             <div id="carrito_resumen">
                 <p>Total : $ <span id="total_carrito">0</span></p>
                 <button id="boton_finalizar">Finalizar Compra</button>
+                <a href="/frontend/cliente/productos.html" class="header__logo_link">
+                    <button class="btn_volver">Volver a Productos</button>
+                </a>
             </div>
         </section>
     </main>
+
+    <div id="footer"></div>
 
     <script src="/frontend/cliente/js/carrito.js"></script>
     <script src="../compartida/js/global.js"></script>

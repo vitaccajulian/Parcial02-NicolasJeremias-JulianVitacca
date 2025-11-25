@@ -1,6 +1,7 @@
 const nombre = localStorage.getItem("usuario");
 document.getElementById("nombre_usuario").textContent= nombre || "invitado"
 
+const BACKEND_URL = "http://localhost:3000";
 
 
 function obtenerCarrito(){
@@ -38,7 +39,7 @@ function renderizarCarrito(){
     const carrito = obtenerCarrito()
 
     if (carrito.length === 0){
-        contenedor.innerHTML = "<p>Tu carrito esta vacio</p>"
+        contenedor.innerHTML = `<p class="carrito_vacio">Tu carrito esta vacio</p>`
         spanTotal.textContent = "0";
         return
     }
@@ -46,16 +47,18 @@ function renderizarCarrito(){
     let html = "";
 
     carrito.forEach(item => {
-        const subtotal = Number(item.precio) * Number(item.cantidad);
+        const subtotal = Number(item.precio) * Number(item.cantidad)
+
+        console.log(`${item.imagen}`)
 
         html += `
             <div class="carrito_item" producto_id="${item.id}">
                 <div class="carrito__item_imagen">
-                    <img src="${item.imagen}" alt="${item.titulo}">
+                    <img src="${BACKEND_URL}/${item.imagen}" alt="${item.titulo}">
                 </div>
                 <div class="carrito__item_info">
                     <h3>${item.titulo}</h3>
-                    <p>Precio; $ ${item.precio}</p>
+                    <p>Precio: $ ${item.precio}</p>
 
                     <div class="carrito__item_cantidad">
                         <button class="boton_restar">-</button>
