@@ -78,7 +78,7 @@ function abrirModalProducto(producto){
     modal_imagen.src =`${BACKEND_URL}/${producto.imagen}`
     modal_imagen.alt = producto.titulo
     modal_cantidad.textContent = cantidad_inicial
-
+    
     if(existente){
         modal_btn_eliminar.classList.remove("oculto")
     }else{
@@ -232,11 +232,9 @@ async function renderProductos(filtro) {
         if (filtro === "libros" && !es_libro) return;
         if (filtro === "discos" && !es_disco) return;
 
-        console.log(`${BACKEND_URL}/${imagen}`);
-
         card.innerHTML = `
             <div class="contenedor_imagen_producto">
-                <img src="${BACKEND_URL}/${imagen}" alt="${titulo}">
+                <img src="${BACKEND_URL}${imagen}" alt="${titulo}">
             </div>
             <div class="contenedor_cuerpo_producto">
                 <div class="producto_titulo">${titulo}</div>

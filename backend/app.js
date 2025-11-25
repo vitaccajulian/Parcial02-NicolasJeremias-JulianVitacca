@@ -15,6 +15,7 @@ import productRoutes from './src/routes/productRoute.js';
 import salesRoute from './src/routes/salesRoute.js';
 import adminRoutes from './src/routes/adminRoutes.js'
 import authRoutes from './src/routes/authRoutes.js'
+import {generatePdf} from './src/middleware/downloadTicket.js'
 
 const app = express();
 const PORT = process.env.PORT;
@@ -45,6 +46,8 @@ app.use('/auth', authRoutes);
 
 /* Admin Routes */
 app.use('/admin', verificarToken, adminRoutes);
+
+app.use('/print', generatePdf)
 
 /* Archivos Estaticos */
 app.use(express.static(path.join(__dirname, 'public')));
