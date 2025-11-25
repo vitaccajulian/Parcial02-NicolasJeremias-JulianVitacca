@@ -53,7 +53,7 @@ app.use('/print', generatePdf)
 /* Archivos Estaticos */
 app.use(express.static(path.join(__dirname, 'public')));
 // Esta ruta es para utilizar la carpeta del frontend. Si se usara la carpeta public del server no seria necesario
-app.use('/front', express.static(path.join(__dirname, '..', 'frontend')));
+app.use('/frontend', express.static(path.join(__dirname, '..', 'frontend')));
 
 app.use((req, res) => {
     res.status(404).send('Lo sentimos, pagina no encontrada'); // ACA ARMAR EL 404
