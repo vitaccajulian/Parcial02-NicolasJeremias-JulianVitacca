@@ -3,7 +3,9 @@ import { disableProduct, updateProduct, createProduct } from '../controllers/pro
 
 const router = express.Router();
 
-//router.get('/', ); // ARMAR ESTA RUTA PARA ADMIN DASHBOARD
+router.get('/dashboard', (req, res) => {
+    res.render('pages/admin');
+});
 
 // Deshabilitar producto por id
 router.put('/:id', disableProduct);

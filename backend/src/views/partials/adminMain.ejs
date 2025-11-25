@@ -1,13 +1,57 @@
-<h1>Bienvenido/a <span id="nombre_usuario"></span></h1>
+    <div id="header"></div>
+    <main class="container">
+        <div class="seccion_filtros">
+            <ul class="filtros__lista">
+                <li><button class="filtros_btn" data-filtro = "todos">VER TODO</button></li>
+                <li><button class="filtros_btn" data-filtro = "discos">VER DISCOS</button></li>
+                <li><button class="filtros_btn" data-filtro = "libros">VER LIBROS</button></li>
+            </ul>
+        </div>
+        <div class="seccion_productos">
+            <h1>Bienvenido/a <span id="nombre_usuario"></span></h1>
 
-<section class="categoria">
-  <h2 class="categoria__titulo">LIBROS</h2>
-  <div id="grid_libros" class="productos_grid"></div>
-</section>
+            <section class="categoria" id="seccion_libros">
+                <h2 class="categoria__titulo">LIBROS</h2>
+                <div id="grid_libros" class="productos_grid">
+                    
+                </div>
+            </section>
 
-<hr class="separador" />
+            <hr class="separador" id="separador_productos">
 
-<section class="categoria">
-  <h2 class="categoria__titulo">DISCOS</h2>
-  <div id="grid_discos" class="productos_grid"></div>
-</section>
+            <section class="categoria" id="seccion_discos">
+                <h2 class="categoria__titulo">DISCOS</h2>
+                <div id="grid_discos" class="productos_grid">
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="modal_producto" class="modal oculto">
+        <div class="modal_contenido">
+            <button class="modal_cerrar" id="modal_cerrar">X</button>
+
+            <div class="modal_imagen">
+                <img id="modal_imagen" src="" alt="">
+            </div>
+
+            <h3 id="modal_titulo"></h3>
+
+            <div class="modal_cantidad">
+                <p>Cantidad</p>
+                <button id="modal_restar">-</button>
+                <span id="modal_cantidad_item">1</span>
+                <button id="modal_sumar">+</button>
+            </div>
+
+            <div class="modal_acciones">
+                <button id="modal_eliminar">Eliminar del carrito</button>
+                <button id="modal_guardar">Guardar cambios</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/front/cliente/js/productos.js"></script>
+    <script src="/front/compartida/js/global.js"></script>
