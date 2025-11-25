@@ -1,0 +1,49 @@
+.color1 {color: #121607;}
+.color2 {color: #124143;}
+.color3 {color: #ec8857;}
+.color4 {color: #ecca5d;}
+.color5 {color: #f6eda0;}
+
+img {
+    height: 200px;
+    object-fit: contain;
+}
+
+#seccion_productos {
+    background-color: var(--naranja);
+}
+
+.productos_grid{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Traido desde style_productos.css */
+.seccion_filtros{
+    background-color: var(--amarillo);
+    align-self: stretch;
+}
+
+#container {
+    margin: 0;
+    padding: 0;
+    background-color: var(--naranja);
+}
+
+.filtros__lista{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filtros_btn{
+    color: var(--crema);
+    background-color: #be7e5b;
+    border: none;
+    padding: 0.3rem;
+    width: 100px;
+    margin: 10px;
+    cursor: pointer;
+}

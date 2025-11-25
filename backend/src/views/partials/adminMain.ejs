@@ -1,5 +1,5 @@
     <div id="header"></div>
-    <main class="container">
+    <section id="container">
         <div class="seccion_filtros">
             <ul class="filtros__lista">
                 <li><button class="filtros_btn" data-filtro = "todos">VER TODO</button></li>
@@ -7,7 +7,7 @@
                 <li><button class="filtros_btn" data-filtro = "libros">VER LIBROS</button></li>
             </ul>
         </div>
-        <div class="seccion_productos">
+        <div id="seccion_productos">
             <h1>Bienvenido/a <span id="nombre_usuario"></span></h1>
 
             <section class="categoria" id="seccion_libros">
@@ -26,7 +26,7 @@
                 </div>
             </section>
         </div>
-    </main>
+    </section>
 
     <div id="modal_producto" class="modal oculto">
         <div class="modal_contenido">
@@ -53,5 +53,4 @@
         </div>
     </div>
 
-    <script src="/frontend/cliente/js/productos.js"></script>
-    <script src="/frontend/compartida/js/global.js"></script>
+    <script src="/admin.js" type="module"></script>

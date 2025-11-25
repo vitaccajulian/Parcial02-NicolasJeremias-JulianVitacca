@@ -9,16 +9,16 @@ export class Product{
      * @param {String} image 
      * @param {Boolean} status 
      */
-    constructor(id, tittle, price, category, stock, image, status) {
+    constructor(id, tittle, price, image, stock, status, category) {
         this.id = id;
         this.tittle = tittle;
         this.price = price;
-        this.category = category;
-        this.stock = stock;
         this.image = image;
+        this.stock = stock;
         this.status = status;
+        this.category = category;
     }
-
+    
     getId() {
         return this.id
     }
@@ -65,6 +65,77 @@ export class Product{
 
     setStatus() {
         this.status = !this.status;
+    }
+
+    toHTML() {
+        const card = document.createElement("div");
+        card.classList.add("card", "m-3");
+        card.style.width = "18rem";
+        card.id = "cardId"
+
+        const img = document.createElement("img");
+        img.src = this.image;
+        img.alt = this.tittle;
+        img.classList.add("card-img-top");
+
+        const body = document.createElement("div");
+        body.classList.add("card-body");
+
+        const title = document.createElement("h5");
+        title.classList.add("card-title");
+        title.textContent = this.tittle;
+
+        const price = document.createElement("p");
+        price.classList.add("card-text");
+        price.textContent = `$${this.price}`;
+
+        const btn = document.createElement("a");
+        const deleteBtn = document.createElement('a');
+
+        btn.href = "#";
+        btn.classList.add("btn", "btn-secondary", "m-2");
+        btn.textContent = "Modificar";
+        btn.dataset.id = this.id;
+        btn.addEventListener("click", (event => {
+            window.location.href = `./editar/${this.id}`;
+        }))
+
+        deleteBtn.href = "#"
+        deleteBtn.classList.add("btn", "btn-danger");
+        const txtBtn = (this.status) ? "Desactivar" : "Activar"
+        deleteBtn.textContent = txtBtn;
+        deleteBtn.dataset.id = this.id;
+        deleteBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+            this.setStatus()
+            let mensaje;
+            let txtBtn;
+            if(this.status){
+                mensaje = "Activado";
+                txtBtn = "Desactivar";
+                deleteBtn.classList.add("btn-danger");
+                deleteBtn.classList.remove("btn-outline-danger");
+            } else {
+                mensaje = "Desactivado";
+                txtBtn = "Activar";
+                deleteBtn.classList.add("btn-outline-danger");
+                deleteBtn.classList.remove("btn-danger");
+            }
+            deleteBtn.textContent = txtBtn;
+            Swal.fire({
+                icon: "success",
+                title: `¡Producto ${mensaje}!`,
+                confirmButtonColor: "#3085d6"
+            });
+        })
+        
+        body.appendChild(title);
+        body.appendChild(price);
+        body.appendChild(btn);
+        body.appendChild(deleteBtn)
+        card.appendChild(img);
+        card.appendChild(body);
+        return card;
     }
 
     toString() {
