@@ -1,4 +1,6 @@
-export class Product{
+import { updateButtonUI } from "../script/updateButton.js";
+
+export class Product {
 
     /**
      * @param {Number} id 
@@ -18,7 +20,7 @@ export class Product{
         this.status = status;
         this.category = category;
     }
-    
+
     getId() {
         return this.id
     }
@@ -27,11 +29,11 @@ export class Product{
         this.id = nuevoId;
     }
 
-    getPrice(){
+    getPrice() {
         return this.price;
     }
 
-    setPrice(newPrice){
+    setPrice(newPrice) {
         this.price = newPrice;
     }
 
@@ -42,7 +44,7 @@ export class Product{
     setCategory(newCategory) {
         this.category = newCategory;
     }
-    
+
     getStock() {
         return this.stock;
     }
@@ -50,7 +52,7 @@ export class Product{
     setStock(newStock) {
         this.stock = newStock;
     }
-    
+
     getImage() {
         return this.image;
     }
@@ -58,7 +60,7 @@ export class Product{
     setImage(newImage) {
         this.image = newImage;
     }
-    
+
     getStatus() {
         return this.status;
     }
@@ -101,34 +103,48 @@ export class Product{
         }))
 
         deleteBtn.href = "#"
-        deleteBtn.classList.add("btn", "btn-danger");
-        const txtBtn = (this.status) ? "Desactivar" : "Activar"
-        deleteBtn.textContent = txtBtn;
         deleteBtn.dataset.id = this.id;
-        deleteBtn.addEventListener("click", (event) => {
-            event.preventDefault();
-            this.setStatus()
-            let mensaje;
-            let txtBtn;
-            if(this.status){
-                mensaje = "Activado";
-                txtBtn = "Desactivar";
-                deleteBtn.classList.add("btn-danger");
-                deleteBtn.classList.remove("btn-outline-danger");
-            } else {
-                mensaje = "Desactivado";
-                txtBtn = "Activar";
-                deleteBtn.classList.add("btn-outline-danger");
-                deleteBtn.classList.remove("btn-danger");
-            }
-            deleteBtn.textContent = txtBtn;
-            Swal.fire({
-                icon: "success",
-                title: `¡Producto ${mensaje}!`,
-                confirmButtonColor: "#3085d6"
-            });
-        })
+        deleteBtn.classList.add("btn")
+        updateButtonUI(deleteBtn, this.status)
         
+        deleteBtn.addEventListener("click", async (event) => {
+            event.preventDefault();
+            this.setStatus(); // Cambia el estado del producto(this)
+            
+            let mensaje = updateButtonUI(deleteBtn, this.status)
+            console.log("boton")
+            try {
+                
+                const response = await fetch(`/admin/disable/${this.id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                })
+                
+                if(!response.ok){
+                    const errorText = await response.text();
+                    throw new Error(`Error ${response.status}: ${errorText}`);
+                }
+
+                Swal.fire({
+                    icon: "success",
+                    title: `¡Producto ${mensaje}!`,
+                    confirmButtonColor: "#3085d6"
+                });
+                
+            
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error al actualizar",
+                    text: error.message,
+                    confirmButtonColor: "#d33"
+                });
+                console.error("Error al actualizar:", error);
+            }
+        })
+
         body.appendChild(title);
         body.appendChild(price);
         body.appendChild(btn);

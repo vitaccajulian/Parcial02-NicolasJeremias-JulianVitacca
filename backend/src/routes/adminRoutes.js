@@ -1,5 +1,6 @@
 import express from 'express';
-import { disableProduct, updateProduct, createProduct } from '../controllers/productController.js'
+import { changeStateProduct, updateProduct, createProduct } from '../controllers/productController.js'
+import { upload } from '../middleware/uploadImages.js';
 
 const router = express.Router();
 
@@ -15,13 +16,13 @@ router.get('/editar/:id', (req, res) => {
     });
 });
 
-// Deshabilitar producto por id
-router.put('/:id', disableProduct);
+// Deshabilitar/Habilitar producto por id
+router.put('/disable/:id', changeStateProduct);
 
 // Modificar producto
-router.put('/update/id', updateProduct)
+router.put('/update/:id', upload.single("imagen"), updateProduct)
 
 // Crear producto
-router.post('/create', createProduct);
+router.post('/create', upload.single("imagen"), createProduct);
 
 export default router;

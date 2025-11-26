@@ -68,7 +68,8 @@ sequelize
     .then(() => seedData())
     .then(() => {
         app.listen(PORT, () => {
-            console.log(`El servidor corriendo en puerto: ${PORT} |=|=| http://localhost:${PORT}/`);
+            console.log(`El servidor corriendo en puerto: ${PORT}`);
+            console.log(`🌐 http://localhost:${PORT}/ 🌐`)
         });
     })
     .catch((error) => {

@@ -1,42 +1,20 @@
+import { obtenerDatosFormulario } from './getFormData.js';
+import { completeForm } from './formDataFiller.js'
+
 document.addEventListener("DOMContentLoaded", async () => {
 
     if (MODO === "editar") {
 
+        let p = null;
         // --- Traer el producto
-        const res = await fetch(`/api/productos/${PRODUCT_ID}`);
-        const p = await res.json();
-
-        /* DATOS GENERALES */
-        titulo.value = p.titulo;
-        precio.value = p.precio;
-        stock.value = p.stock;
-        estado.value = p.estado ? "true" : "false";
-        categoria.value = p.categoria?.nombre || "";
-
-        // Imagen
-        if (p.imagen) {
-            previewImg.src = p.imagen;
-            previewImg.classList.remove("d-none");
+        try {
+            const res = await fetch(`/api/productos/${PRODUCT_ID}`);
+            p = await res.json();
+        } catch (error) {
+            console.log(`Error encontrarndo producto id: ${PRODUCT_ID}`, error)
         }
 
-        /* INFO DISCO */
-        if (p.info_disco) {
-            seccionDisco.classList.remove("d-none");
-
-            interprete.value = p.info_disco.interprete;
-            anio.value = p.info_disco.año;
-            generoDisco.value = p.info_disco.genero?.genero || "";
-        }
-
-        /* INFO LIBRO*/
-
-        if (p.info_libro) {
-            seccionLibro.classList.remove("d-none");
-
-            autor.value = p.info_libro.autor;
-            editorial.value = p.info_libro.editorial;
-            generoLibro.value = p.info_libro.genero?.genero || "";
-        }
+        completeForm(p);
 
         const btn = document.getElementById("guardarCambios");
 
@@ -45,6 +23,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             event.preventDefault();
 
             try {
+
+                // Crear un objeto FormData a partir del formulario
+                const productForm = document.getElementById('formProducto');
+                const formData = new FormData(productForm);
+
+                const response = await fetch(`/admin/update/${PRODUCT_ID}`, {
+                    method: "PUT",
+                    body: formData
+                });
 
                 // Loader mientras se procesa
                 Swal.fire({
@@ -56,13 +43,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     }
                 });
 
-                const response = await fetch(`/admin/update/${PRODUCT_ID}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(producto)
-                });
+                // const response = await fetch(`/admin/update/${PRODUCT_ID}`, {
+                //     method: "PUT",
+
+                //     body: JSON.stringify(producto)
+                // });
 
                 // Respuesta not ok lanza un error
                 if (!response.ok) {

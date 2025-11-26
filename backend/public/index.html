@@ -3,21 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&L</title>
-    <link rel="stylesheet" href="../compartida/css/style_global.css">
-    <link rel="stylesheet" href="/style_index.css">
-    <link rel="icon" href="http://localhost:3000/img/logo-favicon.png">
+    <title>La tienda de Jerry</title>
+    <link rel="stylesheet" href="/frontend/compartida/css/style_global.css">
+    <link rel="stylesheet" href="/frontend/cliente/assets/css/style_index.css">
+    <link rel="icon" href="/img/logo-favicon.png">
 </head>
 <body>
     <main class="contenedor__principal">
         <div class="contenedor__ovalo">
-            <img src="assets/imagenes/discos.png" alt="disco sobre libros">
-            <h1 class="titulo">DISCOS<span class="ampersand">&</span>LIBROS</h1>
-
-            <div class="contenedor__formulario">
-                <input id="usuario" class="input" placeholder="Ingrese su nombre...">
-                <button id="boton_continuar" class="boton">Continuar</button>
+            <div class="logo">
+                <img src="/img/Jerry.png" alt="Logo">
             </div>
+            
+            <div class="contenedor__accesos">
+                <section class="acceso_cliente">
+                    <h2>Entrar como visitante</h2>
+                    <p class="acceso_descripcion">
+                        Ingresa tu nombre para ver la tienda.
+                    </p>
+                    <div class="contenedor__formulario">
+                        <input id="usuario" class="input" placeholder="Ingrese su nombre...">
+                        <button id="boton_continuar" class="boton">Continuar</button>
+                    </div>
+                </section>
+
+                <section class="acceso_admin">
+                    <h2>Acceso Administrador</h2>
+                    <p class="acceso_descripcion">
+                        Panel exclusivo para administradores.
+                    </p>
+                    <button id="boton_admin" class="boton boton_secundario">
+                        <a href="/ingresar">Ir al panel</a>
+                    </button>
+                </section>
+            </div>
+        </div>
+        <div class="contenedor__alumnos">
+            <p><span>Creado por:</span> Nicolas Jeremias / Julian Vitacca</p>
         </div>
     </main>
     <script src="js/index.js"></script>
