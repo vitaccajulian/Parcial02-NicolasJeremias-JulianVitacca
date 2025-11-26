@@ -3,10 +3,33 @@
     height: 100vh;
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 24px 16px;
+    gap: 15px;
     background-color: var(--marron);
+}
+
+/*mini ovalo alumnos*/
+.contenedor__alumnos{
+    background-color: var(--crema);
+    border-radius: 999px;
+    font-weight: 600;
+    padding: 20px 32px ;
+    box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedor__alumnos p{
+    font-size: 0.9rem;
+}
+
+.contenedor__alumnos span{
+    color: #8b8b8b;
+    font-size: 0.7rem;
 }
 
 /*ovalo*/
