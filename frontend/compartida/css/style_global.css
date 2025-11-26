@@ -37,7 +37,7 @@ body.tema_oscuro{
     background-color: var(--fondo-pagina);
 }
 
-body.tema_oscuro h1, h2, h3, p, th, tr{
+body.tema_oscuro h1, h2, h3, p, th, tr, span{
     color: var(--texto-principal);
 }
 
