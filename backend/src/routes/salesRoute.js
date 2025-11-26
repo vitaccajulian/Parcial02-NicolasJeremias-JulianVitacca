@@ -1,5 +1,6 @@
 import express from 'express';
 import { getSales, getOneSale, createSale, renderTicket} from '../controllers/salesController.js';
+import { generatePdf } from '../middleware/downloadTicket.js';
 
 const router = express.Router();
 
@@ -14,5 +15,8 @@ router.post('/', createSale)
 
 // Ticket
 router.get('/ticket/:id', renderTicket)
+
+// Ticket PDF
+router.get('/ticket/:id/pdf', generatePdf);
 
 export default router;

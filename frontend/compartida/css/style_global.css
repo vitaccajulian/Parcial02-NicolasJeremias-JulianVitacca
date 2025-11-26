@@ -8,6 +8,13 @@
     --rosa: #c87e7d;
     --violeta: #827ba7;
     --marron: #471b18;
+    --negro: #1f1f1f;
+
+
+    /*variables para modo claro */
+    --fondo-pagina: var(--crema);
+    --texto-principal: var(var(--negro));
+    /*tengo que seguir agregando mas*/
 }
 
 *{
@@ -16,6 +23,23 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+body{
+    background-color: var(--fondo-pagina);
+}
+
+/*aca cargo las variables para cuando el tema sea oscuro*/
+body.tema_oscuro{
+    --fondo-pagina: var(--negro);
+    --texto-principal: var(--crema);
+}
+
+body.tema_oscuro{
+    background-color: var(--fondo-pagina);
+}
+
+body.tema_oscuro h1, h2, h3, p, th, tr{
+    color: var(--texto-principal);
+}
 
 /*header*/
 
@@ -64,10 +88,27 @@
 }
 
 
-.boton__carrito{
+/*botones*/
+
+.contenedor_botones{
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
+}
+
+#boton_tema{
+    background-color: transparent;
+    color: var(--crema);
+    width: 100px;
+    height: 52px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.45);
+    cursor: pointer;
+}
+
+.boton__carrito{
+    
     width: 52px;
     height: 52px;
     border-radius: 999px;
@@ -130,4 +171,52 @@
     padding: 0;
     margin: 0;
     font-size: 0.9rem;
+}
+
+
+/*  media query para el header  */
+@media (max-width: 600px) {
+    .header__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .header__contedor_logo {
+        width: 150px; 
+        border-bottom-right-radius: 150px;
+    }
+
+    .header__logo img {
+        max-height: 55px; 
+        margin-left: 12px; 
+    }
+
+    .contenedor_botones {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    #boton_tema {
+        width: auto;
+        padding: 6px 10px;
+        font-size: 0.5rem;
+        height: auto;
+        max-width: 110px;
+        white-space: nowrap; 
+        margin-right: 30px;
+    }
+
+    .boton__carrito {
+        width: 44px;
+        height: 44px;
+        margin: 0;
+        margin-right: 3px;
+    }
+
+    .boton__carrito_icono {
+        font-size: 1.4rem;
+    }
 }

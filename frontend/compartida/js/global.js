@@ -22,7 +22,7 @@ function botonCarrito(){
 }
 
 document.addEventListener("DOMContentLoaded", async() => {
-    console.log("hola")
+
     let ruta_base = "";
 
     if (location.pathname.includes("/cliente/")){
@@ -35,5 +35,39 @@ document.addEventListener("DOMContentLoaded", async() => {
     await cargarElementos("#footer", ruta_base + "footer.html")
 
     botonCarrito()
+
+
+    /*funciones para cambiar de tema */
+
+    const boton_tema = document.getElementById("boton_tema")
+    const body = document.body
+
+    const tema_guardado = localStorage.getItem("tema")
+
+    
+    if (tema_guardado === "oscuro") {
+        body.classList.add("tema_oscuro");
+        boton_tema.textContent = "☀ Activar Modo claro";
+        console.log("tema_oscuro");
+    } else {
+        boton_tema.textContent = "🌙 Activar Modo oscuro";
+        console.log("tema_claro");
+    }
+    
+    boton_tema.addEventListener("click", () => {
+        const usa_tema_oscuro = body.classList.contains("tema_oscuro")
+
+        if(usa_tema_oscuro){  //aca pregunto si la clase ya tiene el tema oscuro puesto. de ser asi, tengo que pasar a tema claro. porque toco denuevo boton.  
+            body.classList.remove("tema_oscuro");
+            localStorage.setItem("tema", "claro");    
+            boton_tema.textContent = "🌙 Activar Modo oscuro"; 
+        } else {   
+            body.classList.add("tema_oscuro");
+            localStorage.setItem("tema", "oscuro");  
+            boton_tema.textContent = "☀ Activar Modo claro";  
+        }
+    })
+
+    
 
 })
