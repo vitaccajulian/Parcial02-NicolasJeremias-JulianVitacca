@@ -15,6 +15,7 @@ import productRoutes from './src/routes/productRoute.js';
 import salesRoute from './src/routes/salesRoute.js';
 import adminRoutes from './src/routes/adminRoutes.js'
 import authRoutes from './src/routes/authRoutes.js'
+import userRoutes from './src/routes/userRoutes.js'
 import {generatePdf} from './src/middleware/downloadTicket.js'
 
 const app = express();
@@ -37,6 +38,9 @@ import { verificarToken } from "./src/middleware/verifyToken.js";
 // CookieParser 
 import cookieParser from 'cookie-parser';
 app.use(cookieParser());
+
+/* Rutas de cliente */
+app.use('/', userRoutes);
 
 /*  API Routes */
 app.use('/api/productos', productRoutes);

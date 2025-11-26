@@ -207,6 +207,7 @@ export async function seedData() {
         // 8 Insertar Usuarios(admin)
         await Usuarios.bulkCreate([
             { email: 'nicolas@email.com', nombre: 'Nicolas', apellido: 'Jeremias', contraseña: '$2b$10$X8IKXGfCWhiQoe34FqLf6eSIYfbRnLsCOHkVphwqpyKm9rRY1.sLO' },// password = '$2b$10$X8IKXGfCWhiQoe34FqLf6eSIYfbRnLsCOHkVphwqpyKm9rRY1.sLO' - salt = 10
+            { email: 'admin@root.com', nombre: 'admin', apellido: 'root', contraseña: '$2b$10$n/SBDbMKtdHU7ijHXfit7.ySfb6Bqtv6v3M5MVzbCKCoLoKg3zGuu'}
         ]);
         console.log('✍🏻 Usuarios registrados.');
 

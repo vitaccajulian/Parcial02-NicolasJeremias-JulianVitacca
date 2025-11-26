@@ -1,4 +1,4 @@
-import { Product } from './classes/Product.js'
+import { Product } from '../classes/Product.js'
 
 const api_url = "http://localhost:3000/api/productos"
 
