@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <link rel="stylesheet" href="/frontend/cliente/assets/css/style_ticket.css">
+</head>
+<body>
+    <header><%- include('../partials/header'); %></header>
+
+    <main class="container ticket">
+        <h1>Ticket de compra</h1>
+
+        <p>Cliente: <%= cliente %></p>
+        <p>Fecha: <%= fecha %></p>
+
+        <section class="ticket__detalle">
+            <table>
+            <thead>
+                <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% detalle.forEach(item => { %>
+                <tr>
+                    <td><%= item.producto %></td>
+                    <td><%= item.cantidad %></td>
+                    <td>$ <%= item.precio_unitario %></td>
+                    <td>$ <%= (item.cantidad * item.precio_unitario) %></td>
+                </tr>
+                <% }) %>
+            </tbody>
+            </table>
+        </section>
+
+        <p class="ticket__total">
+            Total: $ <%= total %>
+        </p>
+
+        <div class="ticket__acciones">
+            <a href="/frontend/cliente/index.html">Volver al inicio</a>
+
+            <a href="/api/ventas/ticket/<%= id_venta %>/pdf" target="_blank" class="btn btn_primario"> Descargar PDF </a>
+        </div>
+        
+    </main>
+
+    <footer class="footer"><%- include('../partials/footer'); %></footer>
+
+    <script src="/frontend/compartida/js/global.js"></script>
+</body>
+</html>

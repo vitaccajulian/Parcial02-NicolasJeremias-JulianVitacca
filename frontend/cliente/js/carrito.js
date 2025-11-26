@@ -144,6 +144,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         })
     }
 
+    //finalizo compra aca
 
     if(boton_finalizar){
         boton_finalizar.addEventListener("click", ()=>{
@@ -154,16 +155,43 @@ document.addEventListener("DOMContentLoaded", () =>{
             }
 
             const total = calcularTotal(carrito);
-            const ticket = {
-                fecha: Date().toString(),
-                items: carrito,
-                total
-            }
 
-            localStorage.setItem("ultimoTicket", JSON.stringify(ticket));
-            localStorage.removeItem("carrito");
+            const datosVenta = {
+                cliente: nombre,
+                total: total,
+                detalle: carrito.map(item => ({
+                    id_producto: item.id,
+                    cantidad: item.cantidad,
+                    precio_unitario: Number(item.precio)
+                }))
+            };
 
-            window.location.href = "ticket.html"
+            //mando al back la venta
+
+            fetch(`${BACKEND_URL}/api/ventas`, {
+                method: "POST",
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify(datosVenta)
+            })
+
+            .then(respuesta => respuesta.json())
+                .then(data => {
+                    if (!data.id) {
+                        alert("Ocurrió un error al registrar la venta.");
+                        console.error("Respuesta inesperada del servidor:", data);
+                        return;
+                    }
+
+                    localStorage.removeItem("carrito");
+
+                    window.location.href = `${BACKEND_URL}/api/ventas/ticket/${data.id}`;
+                })
+                .catch(error => {
+                    console.error("Error al enviar la venta:", error);
+                    alert("No se pudo registrar la venta. Intente nuevamente.");
+                });
 
         })
     }
