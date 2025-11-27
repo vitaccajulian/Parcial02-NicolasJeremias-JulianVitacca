@@ -106,43 +106,56 @@ export class Product {
         deleteBtn.dataset.id = this.id;
         deleteBtn.classList.add("btn")
         updateButtonUI(deleteBtn, this.status)
-        
-        deleteBtn.addEventListener("click", async (event) => {
-            event.preventDefault();
-            this.setStatus(); // Cambia el estado del producto(this)
-            
-            let mensaje = updateButtonUI(deleteBtn, this.status)
-            console.log("boton")
-            try {
-                
-                const response = await fetch(`/admin/disable/${this.id}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                })
-                
-                if(!response.ok){
-                    const errorText = await response.text();
-                    throw new Error(`Error ${response.status}: ${errorText}`);
-                }
 
-                Swal.fire({
-                    icon: "success",
-                    title: `¡Producto ${mensaje}!`,
-                    confirmButtonColor: "#3085d6"
-                });
-                
-            
-            } catch (error) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error al actualizar",
-                    text: error.message,
-                    confirmButtonColor: "#d33"
-                });
-                console.error("Error al actualizar:", error);
-            }
+        deleteBtn.addEventListener("click", async (event) => {
+
+            event.preventDefault();
+
+            Swal.fire({
+                title: "Estas seguro?",
+                // text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Confirmar"
+            }).then(async () => {
+                this.setStatus(); // Cambia el estado del producto(this)
+
+                let mensaje = updateButtonUI(deleteBtn, this.status)
+
+                try {
+
+                    const response = await fetch(`/admin/disable/${this.id}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                    })
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(`Error ${response.status}: ${errorText}`);
+                    }
+
+                    Swal.fire({
+                        icon: "success",
+                        title: `¡Producto ${mensaje}!`,
+                        confirmButtonColor: "#3085d6"
+                    });
+
+
+                } catch (error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error al actualizar",
+                        text: error.message,
+                        confirmButtonColor: "#d33"
+                    });
+                    console.error("Error al actualizar:", error);
+                }
+            })
+
         })
 
         body.appendChild(title);

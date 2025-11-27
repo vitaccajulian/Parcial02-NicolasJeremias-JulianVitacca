@@ -44,7 +44,7 @@ export const getOneProduct = async (req, res) => {
                         model: Discos,
                         required: false,
                         as: 'info_disco',
-                        attributes: ['interprete', 'año'],
+                        attributes: ['interprete', 'year'],
                         include: [
                             {
                                 model: Generos,
@@ -88,27 +88,81 @@ export const changeStateProduct = async (req, res) => {
 
 export const createProduct = async (req, res) => {
 
-    const { titulo, precio, imagen, stock, id_categoria, estado, detalles } = req.body;
+    const data = req.body;
+
+    console.log(data)
+
+    let imgUrl;
+    if (req.file) {
+        imgUrl = req.file.filename;
+    } else {
+        imgUrl = "";
+    }
+
     try {
 
-        const nuevoProducto = await Productos.create({ titulo, precio, imagen, stock, id_categoria, estado });
-        const idProducto = nuevoProducto.id;
+        // Verificar categoria
+        const categoria = await Categorias.findOne({
+            where: { nombre: data.categoria }
+        });
 
-        if (id_categoria === 1) {
+        if (!categoria) {
+            return res.status(400).json({ message: "Categoría no encontrada" });
+        }
+
+        const nuevoProducto = await Productos.create(
+            {
+                titulo: data.titulo,
+                precio: data.precio,
+                imagen: imgUrl,
+                stock: data.stock,
+                id_categoria: categoria.id,
+                estado: data.estado
+            }
+        );
+
+        if (!nuevoProducto) {
+            return res.status(400).json({ message: "No se pudo crear producto" });
+        }
+
+        // Crear info_disco 
+        if (categoria.nombre == "Disco") {
+
+            const generoDisco = await Generos.findOne({
+                where: { genero: data.generoDisco }
+            });
+
+            if (!generoDisco) {
+                return res.status(400).json({ message: "Género (disco) no encontrado" });
+            }
+
             await Discos.create(
                 {
-                    id_producto: idProducto,
-                    interprete: detalles.interprete,
-                    genero: detalles.genero,
-                    año: detalles.año
-                })
-        } else if (id_categoria === 2) {
+                    interprete: data.interprete,
+                    year: data.year,
+                    id_genero: generoDisco.id_genero,
+                    id_producto: nuevoProducto.id
+                },
+            );
+        }
+
+        //Crear info_libro
+        if (categoria.nombre == "Libro") {
+
+            const generoLibro = await Generos.findOne({
+                where: { genero: data.generoLibro }
+            });
+
+            if (!generoLibro) {
+                return res.status(400).json({ message: "Género (libro) no encontrado" });
+            }
+
             await Libros.create(
                 {
-                    id_producto: idProducto,
-                    autor: detalles.autor,
-                    editorial: detalles.editorial,
-                    genero: detalles.genero
+                    autor: data.info_libro.autor,
+                    editorial: data.info_libro.editorial,
+                    id_genero: generoLibro.id_genero,
+                    id_producto: nuevoProducto.id
                 },
             );
         }
@@ -125,11 +179,10 @@ export const updateProduct = async (req, res) => {
     const data = req.body;
     const { id } = req.params
 
-    
     try {
-        
-        if(req.file) return res.status(200).json({ message: `Imagen de id: ${id} modificada correctamente!` });
-        
+
+        if (req.file) return res.status(200).json({ message: `Imagen de id: ${id} modificada correctamente!` });
+
         // Verificar categoria
         const categoria = await Categorias.findOne({
             where: { nombre: data.categoria }
@@ -157,7 +210,7 @@ export const updateProduct = async (req, res) => {
         }
 
         // Actualizar info_disco si existe
-        if (data.info_disco) {
+        if (categoria.nombre == "Disco") {
 
             const generoDisco = await Generos.findOne({
                 where: { genero: data.generoDisco }
@@ -170,7 +223,7 @@ export const updateProduct = async (req, res) => {
             await Discos.update(
                 {
                     interprete: data.info_disco.interprete,
-                    año: data.info_disco.año,
+                    year: data.info_disco.year,
                     id_genero: generoDisco.id_genero
                 },
                 { where: { id_producto: id } }
@@ -178,7 +231,7 @@ export const updateProduct = async (req, res) => {
         }
 
         //Sctualizar info_libro si existe
-        if (data.info_libro) {
+        if (categoria.nombre == "Libro") {
 
             const generoLibro = await Generos.findOne({
                 where: { genero: data.generoLibro }
@@ -190,8 +243,8 @@ export const updateProduct = async (req, res) => {
 
             await Libros.update(
                 {
-                    autor: data.info_libro.autor,
-                    editorial: data.info_libro.editorial,
+                    autor: data.autor,
+                    editorial: data.editorial,
                     id_genero: generoLibro.id_genero
                 },
                 { where: { id_producto: id } }

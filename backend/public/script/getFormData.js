@@ -28,12 +28,12 @@ export function obtenerDatosFormulario() {
     // ---- INFO DISCO ---- \\
     if (categoria === "disco") {
         const interprete = form.querySelector('#interprete').value.trim();
-        const anio = form.querySelector('#anio').value;
+        const year = form.querySelector('#year').value;
         const generoD = form.querySelector('#generoDisco').value.trim();
 
         data.info_disco = {
             interprete,
-            año: anio ? Number(anio) : null,
+            year: year ? Number(year) : null,
             genero: { genero: generoD }
         };
     }

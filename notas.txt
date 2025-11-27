@@ -22,19 +22,19 @@ su vez se debe poder agregar o quitar distintas cantidades de los productos sele
 comprados, sus datos y el nombre del usuario
 
 Administrador:
-❌1. Pantalla login.  Debe poder permitir ingresar un correo  y contraseña  para acceder.
+✅1. Pantalla login.  Debe poder permitir ingresar un correo  y contraseña  para acceder.
 
 ✅2. Pantalla dashboard. Debe poseer el listado de productos, así como las acciones correspondientes 
 para el alta, baja y modificación de los mismos. 
 
-❌3. Pantalla Alta de producto.  Debe permitir cargar un nuevo producto con todos sus datos y su 
+✅3. Pantalla Alta de producto.  Debe permitir cargar un nuevo producto con todos sus datos y su 
 imagen.
 
 ✅4. Pantalla Modificar producto.  Debe permitir modificar todos los datos de un producto a través de 
 su ID. Nota: se puede reutilizar la pantalla de alta.
 
 Revisar esto en la carga de productos
-❌21.  El producto activado pasa a mostrarse en estado activo.
+✅21.  El producto activado pasa a mostrarse en estado activo.
 ❌Nota:  En este momento, debería poder verse dicho producto del lado del cliente.
 
 Flujo principal del cliente:
@@ -44,8 +44,18 @@ Flujo principal del cliente:
     de hoy y el nombre de la empresa. 
     15.  El cliente le da al botón de salir . 16.  El sistema vuelve a comenzar
 
-❌Flujo principal del administrador:
-
+Flujo principal del administrador:
+    ✅6. El administrador presiona el botón agregar producto.
+    ✅7. Se redirige a la pantalla de alta del producto. Se muestra el formulario de alta de producto.
+    ✅8. El administrador completa el formulario. El administrador carga una imagen para el producto.
+    ❌ - Modificar el nombre temporal del archivo que guarda multer
+    ✅9. El administrador presiona el botón agregar. 
+    ❌10. Se redirige a la pantalla de dashboard. Se muestra el listado de productos, incluyendo el producto 
+    agregado.
+    ✅12. Se muestra un modal  que pregunta si está seguro de eliminar. El administrador presiona el botón 
+    confirmar.
+    ✅20.  Se muestra un modal que pregunta si está seguro de activar. El administrador presiona el botón 
+    confirmar.
 
 Requerimientos aplicación Front- end para el cliente / usuario
 ❌
@@ -56,6 +66,6 @@ Requerimientos aplicación Front- end para el cliente / usuario
     El sistema debe permitir cambiar el tema de la aplicación (al menos dos, claro y oscuro). Además de 
      mantener el tema elegido si se recarga la página. 
 
-Requerimientos aplicación Back-end.
-❌
-    El panel debe poder permitir agregar un nuevo producto a la base de datos.
+✅ Requerimientos aplicación Back-end.
+
+   ✅ El panel debe poder permitir agregar un nuevo producto a la base de datos.

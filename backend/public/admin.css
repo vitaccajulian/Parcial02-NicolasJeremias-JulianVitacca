@@ -9,8 +9,16 @@ img {
     object-fit: contain;
 }
 
+.card {
+    min-width: 200px;
+    height: 350px;
+}
+
 #seccion_productos {
     background-color: var(--naranja);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .productos_grid{
@@ -46,4 +54,8 @@ img {
     width: 100px;
     margin: 10px;
     cursor: pointer;
+}
+
+.footer{
+    margin: 0;
 }

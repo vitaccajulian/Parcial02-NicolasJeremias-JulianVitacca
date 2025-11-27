@@ -60,7 +60,7 @@ export class Disco extends Product{
             Id Producto: ${this.id_product}, 
             Interprete: ${this.artist}, 
             Genero: ${this.genre}, 
-            Año: ${this.year}
+            Year: ${this.year}
         `;
     }
 }

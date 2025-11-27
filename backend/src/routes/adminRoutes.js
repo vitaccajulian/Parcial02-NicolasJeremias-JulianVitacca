@@ -16,6 +16,14 @@ router.get('/editar/:id', (req, res) => {
     });
 });
 
+router.get('/crear', (req, res) => {
+
+    res.render('pages/abm', {
+        modo: 'crear',
+        id: null
+    });
+});
+
 // Deshabilitar/Habilitar producto por id
 router.put('/disable/:id', changeStateProduct);
 

@@ -1,4 +1,3 @@
-import { obtenerDatosFormulario } from './getFormData.js';
 import { completeForm } from './formDataFiller.js'
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -34,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 });
 
                 // Loader mientras se procesa
-                Swal.fire({
+                Swal.fire({ // Agregar unos segundos
                     title: "Guardando cambios...",
                     text: "Por favor espera",
                     allowOutsideClick: false,
@@ -42,12 +41,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         Swal.showLoading();
                     }
                 });
-
-                // const response = await fetch(`/admin/update/${PRODUCT_ID}`, {
-                //     method: "PUT",
-
-                //     body: JSON.stringify(producto)
-                // });
 
                 // Respuesta not ok lanza un error
                 if (!response.ok) {

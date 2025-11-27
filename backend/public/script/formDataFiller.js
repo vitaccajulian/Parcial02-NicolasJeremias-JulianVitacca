@@ -27,11 +27,11 @@ export function completeForm(p) {
     if (p.info_disco) {
         seccionDisco.classList.remove("d-none");
         const interprete = document.getElementById("interprete");
-        const anio = document.getElementById("anio");
+        const year = document.getElementById("year");
         const generoDisco = document.getElementById("generoDisco");
 
         interprete.value = p.info_disco.interprete;
-        anio.value = p.info_disco.año;
+        year.value = p.info_disco.year;
         generoDisco.value = p.info_disco.genero?.genero || "";
     }
 

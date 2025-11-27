@@ -7,7 +7,7 @@ export const Discos = sequelize.define('Discos',
         id_producto: { type: DataTypes.INTEGER, allowNull: false },
         interprete: { type: DataTypes.STRING(100), allowNull: false },
         id_genero: { type: DataTypes.INTEGER, allowNull: true },
-        año: { type: DataTypes.INTEGER, allowNull: true }
+        year: { type: DataTypes.INTEGER, allowNull: true }
     }, 
     {
         timestamps: false
