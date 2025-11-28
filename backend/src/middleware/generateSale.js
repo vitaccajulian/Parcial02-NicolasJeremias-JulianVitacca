@@ -11,13 +11,13 @@ export const generateSale = async (req, res, next) => {
 
             const producto = await Productos.findOne({ where: { id: element.id_producto } });
             if (!producto) throw new Error('Producto no encontrado');
-            element["precio"] = producto.precio
+
+
+            element.precio_unitario = producto.precio
+
+            total += element.precio_unitario * element.cantidad
             
         }));
-        
-        detalle.forEach(e => {
-            total += (e.precio * e.cantidad);
-        });
         
         req.body.total = total;
         req.body.detalle = detalle;

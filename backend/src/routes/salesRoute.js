@@ -1,6 +1,7 @@
 import express from 'express';
 import { getSales, getOneSale, createSale, renderTicket} from '../controllers/salesController.js';
 import { generatePdf } from '../middleware/downloadTicket.js';
+import { generateSale } from '../middleware/generateSale.js';
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ router.get('/', getSales);
 router.get('/:id', getOneSale)
 
 // Registrar una venta en BBDD
-router.post('/', createSale)
+router.post('/', generateSale, createSale)
 
 // Ticket
 router.get('/ticket/:id', renderTicket)
