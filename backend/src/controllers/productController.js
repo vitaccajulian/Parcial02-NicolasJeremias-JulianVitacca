@@ -209,16 +209,11 @@ export const updateProduct = async (req, res) => {
     
     try {
         
-        //if (req.file) return res.status(200).json({ message: `Imagen de id: ${id} modificada correctamente!` });
         if (req.file) {
-            tempFilename = req.file.filename;
+            tempFilename = `/img/productos/${req.file.filename}`;
         } else {
-            tempFilename = data.imagen
+            tempFilename = data.imagenExistente
         }
-        console.log("TEMP :", tempFilename)
-        
-        const filename = `/img/productos/${tempFilename}`
-        console.log("FINAL :", filename)
 
         // Verificar categoria
         const categoria = await Categorias.findOne({
@@ -234,7 +229,7 @@ export const updateProduct = async (req, res) => {
             {
                 titulo: data.titulo,
                 precio: data.precio,
-                imagen: filename,
+                imagen: tempFilename,
                 stock: data.stock,
                 id_categoria: categoria.id,
                 estado: data.estado

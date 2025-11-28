@@ -12,7 +12,7 @@ export function initializeLoginFormFiller(testData) {
         return;
     }
 
-    // --- 1. Crear el botón ---
+    // --- Crear el botón --- \\
     const div = document.createElement('div');
     div.classList.add("mt-3")
 
@@ -21,18 +21,7 @@ export function initializeLoginFormFiller(testData) {
     fillFormButton.textContent = 'Rellenar Formulario';
     fillFormButton.id = 'fill-form-btn';
     
-    // --- 2. Estilizar y posicionar el botón (Posición absoluta) ---
-    
-    // fillFormButton.style.zIndex = '100'; 
-    // fillFormButton.style.padding = '8px';
-    // fillFormButton.style.margin = '10px';
-    // fillFormButton.style.backgroundColor = '#28a745';
-    // fillFormButton.style.color = 'white';
-    // fillFormButton.style.border = 'none';
-    // fillFormButton.style.borderRadius = '5px';
-    // fillFormButton.style.cursor = 'pointer';
-
-    // --- 3. Añadir Event Listener ---
+    // --- Añadir Event Listener --- \\
     fillFormButton.addEventListener('click', (event) => {
         event.preventDefault(); // Evita que si está dentro de un form, lo envíe
         formEmailInput.value = testData.email;
@@ -42,6 +31,6 @@ export function initializeLoginFormFiller(testData) {
 
     div.appendChild(fillFormButton);
 
-    // --- 4. Insertar el botón en el main ---
+    // --- Insertar el botón en el main ---\\
     mainContent.appendChild(div);
 }

@@ -26,6 +26,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 // Crear un objeto FormData a partir del formulario
                 const productForm = document.getElementById('formProducto');
                 const formData = new FormData(productForm);
+                
+                for (let entry of formData.entries()) {
+                    console.log(entry[0] + ': ' + entry[1]);
+                  }
 
                 const response = await fetch(`/admin/update/${PRODUCT_ID}`, {
                     method: "PUT",
