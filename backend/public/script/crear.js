@@ -53,3 +53,12 @@ btn.addEventListener("click", async (event) => {
         console.log(`Error al crear producto: ${error}`)
     }
 })
+
+/* Vista previa de imagen */
+    imagen.addEventListener("change", () => {
+        const file = imagen.files[0];
+        if (file) {
+            previewImg.src = URL.createObjectURL(file); // Crea un elemento de img a partir de file
+            previewImg.classList.remove("d-none");
+        }
+    });
