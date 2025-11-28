@@ -1,4 +1,5 @@
 import { completeForm } from './formDataFiller.js'
+import { loadGenres } from "./genresDataFiller.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -12,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         } catch (error) {
             console.log(`Error encontrarndo producto id: ${PRODUCT_ID}`, error)
         }
-
+        await loadGenres()
         completeForm(p);
 
         const btn = document.getElementById("guardarCambios");
@@ -61,9 +62,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 console.error("Error al actualizar:", error);
             }
         })
-    }
-    else {
-        // Logica para crear producto:
     }
 
     /* Vista previa de imagen */

@@ -1,7 +1,11 @@
+import { loadGenres } from './genresDataFiller.js'
+
 const tipo = document.getElementById("categoria");
 const elementosLibro = document.getElementById("seccionLibro");
 const elementosDisco = document.getElementById("seccionDisco");
 const btn = document.getElementById("guardarCambios");
+
+await loadGenres()
 
 tipo.addEventListener('change', () => {
 

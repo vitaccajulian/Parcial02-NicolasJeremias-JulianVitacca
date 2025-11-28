@@ -27,6 +27,10 @@ export const getProducts = async (req, res) => {
             },
         );
 
+        if (!productos) {
+            return res.status(400).json({ message: "No encontraron productos." });
+        }
+
         res.send(productos);
 
     } catch (error) {
@@ -66,6 +70,10 @@ export const getOneProduct = async (req, res) => {
                 attributes: { exclude: ['id_categoria'] }
             }
         );
+
+        if (!producto) {
+            return res.status(400).json({ message: `No encontro ningun producto con id: ${id}.` });
+        }
 
         res.send(producto)
     } catch (error) {

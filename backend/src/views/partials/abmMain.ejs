@@ -1,4 +1,3 @@
-<!-- Aca armar segun sea alta o modificacion para no ser redundante -->
 <section class="container py-4">
     <h1 id="tituloForm" class="mb-4">
         <%= modo === 'editar' ? 'Editar Producto' : 'Crear Producto' %>
@@ -49,10 +48,6 @@
                     </select>
                 </div>
                 <!-- Tipo de producto -->
-                <!-- <div class="col-md-6">
-                    <label class="form-label">Categoría</label>
-                    <input type="text" id="categoria" name="categoria" class="form-control"/>
-                </div> -->
                 <div class="col-md-3">
                     <label class="form-label">Tipo de producto</label>
                     <select id="categoria" name="categoria" class="form-select">
@@ -80,9 +75,17 @@
                     <input type="number" id="year" name="year" class="form-control"/>
                 </div>
                 <!-- Género -->
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                     <label class="form-label">Género</label>
                     <input type="text" id="generoDisco" name="generoDisco" class="form-control"/>
+                </div> -->
+                <div class="col-md-3">
+                    <label class="form-label">Género</label>
+                    <select id="generoDisco" name="generoDisco" class="form-select listaGenero">
+                        <% if (modo === 'crear') { %>
+                            <option value="" selected disabled>Selecciona una opción</option>
+                        <% } %>
+                    </select>
                 </div>
             </div>
         </div>
@@ -101,9 +104,17 @@
                     <input type="text" id="editorial" name="editorial" class="form-control"/>
                 </div>
                 <!-- Género -->
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <label class="form-label">Género</label>
                     <input type="text" id="generoLibro" name="generoLibro" class="form-control"/>
+                </div> -->
+                <div class="col-md-3">
+                    <label class="form-label">Género</label>
+                    <select id="generoLibro" name="generoLibro" class="form-select listaGenero">
+                        <% if (modo === 'crear') { %>
+                            <option value="" selected disabled>Selecciona una opción</option>
+                        <% } %>
+                    </select>
                 </div>
             </div>
         </div>
