@@ -32,16 +32,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                     body: formData
                 });
 
-                // Loader mientras se procesa
-                Swal.fire({ // Agregar unos segundos
-                    title: "Guardando cambios...",
-                    text: "Por favor espera",
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
-
                 // Respuesta not ok lanza un error
                 if (!response.ok) {
                     const errorText = await response.text();
@@ -53,6 +43,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     icon: "success",
                     title: "¡Producto actualizado!",
                     confirmButtonColor: "#3085d6"
+                }).then(function () {
+                    window.location.href = "/admin/dashboard";
                 });
 
             } catch (error) {

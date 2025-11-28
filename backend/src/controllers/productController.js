@@ -1,5 +1,13 @@
 import { Productos, Discos, Libros, Categorias, Generos } from "../models/index.js";
 import { Sequelize } from "sequelize";
+import fs from 'fs';
+import path from 'path';
+
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export const DESTINO_ABSOLUTO = path.join(__dirname, '..', '..', 'public', 'img', 'productos');
 
 export const getProducts = async (req, res) => {
 
@@ -16,7 +24,7 @@ export const getProducts = async (req, res) => {
                 ],
                 raw: true, // Esto elimina la cascada, y devuelve el objeto plano
                 attributes: { exclude: ['id_categoria'] }
-            }
+            },
         );
 
         res.send(productos);
@@ -89,15 +97,7 @@ export const changeStateProduct = async (req, res) => {
 export const createProduct = async (req, res) => {
 
     const data = req.body;
-
-    console.log(data)
-
-    let imgUrl;
-    if (req.file) {
-        imgUrl = req.file.filename;
-    } else {
-        imgUrl = "";
-    }
+    let tempFilename = req.file ? req.file.filename : null;
 
     try {
 
@@ -114,7 +114,7 @@ export const createProduct = async (req, res) => {
             {
                 titulo: data.titulo,
                 precio: data.precio,
-                imagen: imgUrl,
+                imagen: tempFilename,
                 stock: data.stock,
                 id_categoria: categoria.id,
                 estado: data.estado
@@ -122,7 +122,29 @@ export const createProduct = async (req, res) => {
         );
 
         if (!nuevoProducto) {
+            if (tempFilename) {
+                // Si hay algun error se borra el archivo temporal si existe
+                fs.unlinkSync(path.join(DESTINO_ABSOLUTO, tempFilename));
+            }
             return res.status(400).json({ message: "No se pudo crear producto" });
+        }
+
+        // --- LÓGICA CLAVE DE RENOMBRADO ---
+        if (tempFilename) {
+            const ext = path.extname(req.file.originalname);
+            const newFilename = `CIL${String(nuevoProducto.id).padStart(3, "0")}${ext}`;
+            
+            const oldPath = path.join(DESTINO_ABSOLUTO, tempFilename);
+            const newPath = path.join(DESTINO_ABSOLUTO, newFilename);
+
+            // Renombra el archivo temporal al nombre final usando el ID
+            fs.renameSync(oldPath, newPath);
+
+            // Actualiza el registro en la DB con el nombre de archivo final
+            await Productos.update(
+                { imagen: `/img/productos/${newFilename}` }, 
+                { where: { id: nuevoProducto.id } }
+            );
         }
 
         // Crear info_disco 
@@ -170,6 +192,10 @@ export const createProduct = async (req, res) => {
         res.status(201).json({ message: `Nuevo producto agregado. ID autogenerado: ${nuevoProducto.id}` })
 
     } catch (error) {
+        if (tempFilename) {
+            // En caso de error tambien borramos el archivo temporal
+            fs.unlinkSync(path.join(DESTINO_ABSOLUTO, tempFilename));
+        }
         res.status(500).json({ message: `Error al crear producto: ${error.message}` });
     }
 }
@@ -178,10 +204,21 @@ export const updateProduct = async (req, res) => {
 
     const data = req.body;
     const { id } = req.params
-
+    
+    let tempFilename;
+    
     try {
-
-        if (req.file) return res.status(200).json({ message: `Imagen de id: ${id} modificada correctamente!` });
+        
+        //if (req.file) return res.status(200).json({ message: `Imagen de id: ${id} modificada correctamente!` });
+        if (req.file) {
+            tempFilename = req.file.filename;
+        } else {
+            tempFilename = data.imagen
+        }
+        console.log("TEMP :", tempFilename)
+        
+        const filename = `/img/productos/${tempFilename}`
+        console.log("FINAL :", filename)
 
         // Verificar categoria
         const categoria = await Categorias.findOne({
@@ -197,7 +234,7 @@ export const updateProduct = async (req, res) => {
             {
                 titulo: data.titulo,
                 precio: data.precio,
-                imagen: data.imagen,
+                imagen: filename,
                 stock: data.stock,
                 id_categoria: categoria.id,
                 estado: data.estado

@@ -1,5 +1,5 @@
 // importar las tablas a relacionar
-import { Ventas, DetalleVentas, Productos, Categorias, Libros, Discos, Generos } from './exportModels.js'
+import { Ventas, DetalleVentas, Productos, Categorias, Libros, Discos, Generos, Usuarios } from './exportModels.js'
 
 // Definir Relaciones
 
@@ -30,4 +30,4 @@ Generos.hasMany(Libros, { foreignKey: 'id_genero', as: 'libro'});
 
 // exportar las relaciones hechas
 
-export { Ventas, DetalleVentas, Productos, Categorias, Libros, Discos, Generos };
+export { Ventas, DetalleVentas, Productos, Categorias, Libros, Discos, Generos, Usuarios };

@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById("usuario")
     const boton = document.getElementById("boton_continuar")
-
+    const adminBtn = document.getElementById("boton_admin")
 
     boton.addEventListener("click", () => {
         const nombre = input.value.trim();
@@ -17,6 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "productos.html"
 
 
+    })
+
+    adminBtn.addEventListener("click", () => {
+        window.location.href = "/ingresar"
     })
 
 });

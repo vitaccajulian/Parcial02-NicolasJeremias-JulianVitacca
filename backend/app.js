@@ -11,12 +11,8 @@ const __dirname = path.dirname(__filename);
 import { sequelize } from './src/database/index.js';
 import { seedData } from './src/database/initData.js';
 
-import productRoutes from './src/routes/productRoute.js';
-import salesRoute from './src/routes/salesRoute.js';
-import adminRoutes from './src/routes/adminRoutes.js'
-import authRoutes from './src/routes/authRoutes.js'
-import userRoutes from './src/routes/userRoutes.js'
-import {generatePdf} from './src/middleware/downloadTicket.js'
+import { adminRoutes, authRoutes, productRoutes, salesRoutes, userRoutes, } from './src/routes/index.js'
+import { generatePdf } from './src/middleware/downloadTicket.js'
 
 const app = express();
 const PORT = process.env.PORT;
@@ -44,7 +40,7 @@ app.use('/', userRoutes);
 
 /*  API Routes */
 app.use('/api/productos', productRoutes);
-app.use('/api/ventas', salesRoute);
+app.use('/api/ventas', salesRoutes);
 
 app.use('/auth', authRoutes);
 

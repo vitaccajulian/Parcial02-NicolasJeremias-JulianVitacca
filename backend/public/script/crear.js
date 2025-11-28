@@ -4,7 +4,7 @@ const elementosDisco = document.getElementById("seccionDisco");
 const btn = document.getElementById("guardarCambios");
 
 tipo.addEventListener('change', () => {
-    
+
     if (tipo.value == "Disco") {
         elementosDisco.classList.remove("d-none")
         elementosLibro.classList.add("d-none")
@@ -41,6 +41,8 @@ btn.addEventListener("click", async (event) => {
             icon: "success",
             title: "¡Producto Creado Correctamente!",
             confirmButtonColor: "#3085d6"
+        }).then(function () {
+            window.location.href = "/admin/dashboard";
         });
 
     } catch (error) {

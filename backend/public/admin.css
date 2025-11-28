@@ -1,8 +1,10 @@
-.color1 {color: #121607;}
-.color2 {color: #124143;}
-.color3 {color: #ec8857;}
-.color4 {color: #ecca5d;}
-.color5 {color: #f6eda0;}
+body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    /* Header(auto), Contenido(1fr), Footer(auto) */
+    min-height: 100vh;
+    margin: 0;
+}
 
 img {
     height: 200px;
@@ -14,6 +16,17 @@ img {
     height: 350px;
 }
 
+.indexPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2%;
+}
+
+#admin-form {
+    max-width: 500px;
+}
+
 #seccion_productos {
     background-color: var(--naranja);
     display: flex;
@@ -21,14 +34,14 @@ img {
     align-items: center;
 }
 
-.productos_grid{
+.productos_grid {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
 /* Traido desde style_productos.css */
-.seccion_filtros{
+.seccion_filtros {
     background-color: var(--amarillo);
     align-self: stretch;
 }
@@ -39,14 +52,14 @@ img {
     background-color: var(--naranja);
 }
 
-.filtros__lista{
+.filtros__lista {
     list-style: none;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.filtros_btn{
+.filtros_btn {
     color: var(--crema);
     background-color: #be7e5b;
     border: none;
@@ -56,6 +69,6 @@ img {
     cursor: pointer;
 }
 
-.footer{
+.footer {
     margin: 0;
 }
